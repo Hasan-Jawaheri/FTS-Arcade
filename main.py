@@ -11,7 +11,7 @@ def LoadImage ( filename ):
     SEND ( bytes([0x0]) + struct.pack ( "i", len(filename) ) + ar )
 
 def LoadFuckYou ( ):
-	return 1
+	return 2
 
 
     
