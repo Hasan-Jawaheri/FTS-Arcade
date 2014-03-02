@@ -4,7 +4,7 @@ import struct
 def 
 
 
-funSymbol = "c"
+funSymbol = "d"
 def SEND ( msg ):
     print (msg)
     return 0
