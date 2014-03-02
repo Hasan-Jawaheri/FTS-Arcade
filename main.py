@@ -7,7 +7,7 @@ def
 funSymbol = "d"
 def SEND ( msg ):
     print (msg)
-    return 0
+    return 1
 
 def LoadImage ( filename ):
     fn = bytearray(map ((lambda x: ord(x)), list(filename)))
