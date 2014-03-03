@@ -2,7 +2,9 @@
 
 import main
 
+print ("one")
 FTSInit ( )
+print ("two")
 
 pic1 = LoadImage ("kofta.jpeg")
 sprite1 = CreateSprite(pic1)
