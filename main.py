@@ -1,22 +1,15 @@
-import struct
 import socket
-from image import *
-from sprite import *
+import struct
 
-clientsocket = None
+CLIENTSOCKET = None
+IMAGETABLE = None
+SPRITETABLE = None
+TABLESIZE = 1000
 
 def SEND ( msg ):
-	clientsocket.send ( msg )
+	CLIENTSOCKET.send ( msg )
 
-def RECIEVE():
-	ar = bytearray(map ((lambda x: ord(x)), list(clientsocket.recv(4))))
-	return struct.unpack('i', ar)
-
-def FTSInit ( ):
-	clientsocket = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-	clientsocket.connect (("192.168.100.3", 5730))
-	ImagesInit ( )
-	SpritesInit ( )
-
-def Sync():
-	return 0
+def RECEIVE ( r, len ):
+	received = CLIENTSOCKET.recv(len)
+	ar = bytearray(map ((lambda x: ord(x)), list(received)))
+	return struct.unpack(r, ar)

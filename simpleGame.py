@@ -1,12 +1,10 @@
 #Small testing game
 
-from main import *
+from FTSArcade import *
 
-print ("one")
 FTSInit ( )
-print ("two")
 
-pic1 = LoadImage ("kofta.jpeg")
+pic1 = LoadImage ("C:\\Users\\Hasan\\Documents\\Visual Studio 2013\\Projects\RPG\\Map Importer\\arena.bmp")
 sprite1 = CreateSprite(pic1)
 SetSpritePosition(sprite1, 0, 200)
 

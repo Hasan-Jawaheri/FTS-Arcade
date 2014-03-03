@@ -1,20 +1,23 @@
-from hash import *
+import HashTable
+import main
+import struct
 
 class SPRITE:
 	ID = 0
 	ColNum = 0
 	RowNum = 0
 
-SPRITETABLE = None
-TABLESIZE = 1000
+def SPRITEHASHFUNCTION (x):
+    return x % 1000
 
 def SpritesInit():
-	SPRITETABLE = CreateHashTable ( TABLESIZE )
+	main.SPRITETABLE = HashTable.CreateHashTable ( main.TABLESIZE )
 
 def CreateSprite (image):
-	SEND (bytes([0x2]) + struct.pack ("i", image))
+	main.SEND (struct.pack ("ii", 2, image))
+	#HashTable.HTInsert ( SPRITETABLE, SPRITEHASHFUNCTION, main.RECEIVE ( "i", 4 ) )
 
-def SetSpitePosition(sprite, px, py):
+def SetSpritePosition(sprite, px, py):
 	return 0
 
 def MoveSprite(sprite, x):

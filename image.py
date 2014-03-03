@@ -1,25 +1,30 @@
-from hash import *
+import HashTable
+import main
+import struct
 
 class IMAGE:
 	ID = 0 
 	width = 0
 	height = 0
 
-IMAGETABLE = None
-TABLESIZE = 1000
+def IMAGEHASHFUNCTION (x):
+    return x % 1000
 
 def ImagesInit():
-	IMAGETABLE = CreateHashTable ( TABLESIZE )
+    main.IMAGETABLE = HashTable.CreateHashTable ( main.TABLESIZE )
 
-def LoadImage ( filename, sx, sy ):
+def LoadImageSliced ( filename, sx, sy ):
+    # a byte array of the filename
     ar = bytearray(map ((lambda x: ord(x)), list(filename)))
-    ret = [0]
-    for i in range(1, (256 - len(filename))):
-    	ret.append([0])
-    ar2 = ar + ret
-    SEND ( bytes([0x1]) + struct.pack ( "ii", sx, sy ) + ar2 )
-    HTinsert(IMAGETABLE, MyVeryCoolHashFunctionDotComOofOne, RECIEVE())
+    # make it 256 bytes in length (must be fixed size!)
+    for i in range(0, (256 - len(filename))):
+    	ar += bytearray([0])
+    # send function 1 to server [1:4][filename:256][sx:4][sy:4]
+    main.SEND ( struct.pack ( "i", 1 ) + ar + struct.pack ( "ii", sx, sy ) )
+    reply = main.RECEIVE ( "iii", 12 )
+    #HashTable.HTInsert(IMAGETABLE, IMAGEHASHFUNCTION, RECEIVE())
+    return reply[0] # return the ID
 
 def LoadImage ( filename ):
-	LoadImage ( filename, 1, 1 )
+	return LoadImageSliced ( filename, 1, 1 )
 
