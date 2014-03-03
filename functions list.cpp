@@ -1,65 +1,130 @@
-//=================================================================================
-//basic image
-0.  IMAGE	LoadImage			( string filename, int sliceX = 1, int sliceY = 1 )
-1.  int		GetImageSizeX		( IMAGE img )
-2.  int		GetImageSizeY		( IMAGE img )
+//***********************************************
+// KEY:                                         *
+//    python   this   C++                       *
+//    <-------> o <----->                       *
+//    Arrow indicates communication direction   *
+//***********************************************
+
 
 //=================================================================================
-// basic sprite
-3.  SPRITE	CreateSprite		( IMAGE img )
-4.  void	SetSpritePosition	( SPRITE spr, int x, int y )
-5.  void	SetSpriteAngle		( SPRITE spr, float fAngle )
-6.  void	RotateSprite		( SPRITE spr, float fAngle )
-7.  void	MoveSprite			( SPRITE spr, float fUnits )
-8.  void	StrafeSprite		( SPRITE spr, float fUnits )
-9.	void	SetSpriteSize		( SPRITE spr, int sx, int sy )
-10. int		GetSpritePositionX	( SPRITE spr )
-11. int 	GetSpritePositionY	( SPRITE spr )
-12. int		GetSpriteSizeX		( SPRITE spr )
-13. int		GetSpriteSizeY		( SPRITE spr )
-14.	float	GetSpriteAngle		( SPRITE spr )
+//=================================================================================
+//----------------------------------------------------------------------------------
+// BASIC IMAGE
+// An image is a resource that is handled by the C++ side. Loading an image must be
+// done on the C++ side, and the python side has to wait for it.
+// A local copy of the image information has to be stored on python for instant
+// access to size.
+// IMAGE LOCAL COPY:
+//   ID    (unsigned int)
+//   sizeX (unsigned int)
+//   sizeY (unsigned int)
+//----------------------------------------------------------------------------------
+0.  IMAGE	LoadImage			( string filename, int sliceX = 1, int sliceY = 1 )		<-- o <->
+1.  int		GetImageSizeX		( IMAGE img )											--> o
+2.  int		GetImageSizeY		( IMAGE img )											--> o
+//=================================================================================
 
+//=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
+// BASIC SPRITE
+// A sprite is a resource that is handled by the C++ side. Loading a sprite muist be
+// done on the C++ side, and the python side has to wait for it.
+// A local copy of the sprite information has to be stored on python for instant
+// movement/access.
+// SPRITE LOCAL COPY:
+//   ID         
+//   position
+//   size
+//   flipState
+//   bPlaying
+//   bLooping
+//   bPaused
+//----------------------------------------------------------------------------------
+3.  SPRITE	CreateSprite		( IMAGE img )											<-- o <->
+4.  void	SetSpritePosition	( SPRITE spr, int x, int y )							<-- o
+5.  void	SetSpriteAngle		( SPRITE spr, float fAngle )							<-- o
+6.  void	RotateSprite		( SPRITE spr, float fAngle )							<-- o
+7.  void	MoveSprite			( SPRITE spr, float fUnits )							<-- o
+8.  void	StrafeSprite		( SPRITE spr, float fUnits )							<-- o
+9.	void	SetSpriteSize		( SPRITE spr, int sx, int sy )							<-- o
+10. int		GetSpritePositionX	( SPRITE spr )											--> o
+11. int 	GetSpritePositionY	( SPRITE spr )											--> o
+12. int		GetSpriteSizeX		( SPRITE spr )											--> o
+13. int		GetSpriteSizeY		( SPRITE spr )											--> o
+14.	float	GetSpriteAngle		( SPRITE spr )											--> o
+//----------------------------------------------------------------------------------
 // sprite manipulation
-15.  void	FlipSprite			( SPRITE spr, int H, int V )
-
+//----------------------------------------------------------------------------------
+15.  void	FlipSprite			( SPRITE spr, int H, int V )							<-- o
+//----------------------------------------------------------------------------------
 // sprite animation
-16. void	PlaySprite			( SPRITE spr, int frameST, int frameND, bool bLoop )
-17. void	StopSprite			( SPRITE spr, bool bWaitCycle )
-18. void	PauseSprite			( SPRITE spr )
-19. void	ResumeSprite		( SPRITE spr )
+//----------------------------------------------------------------------------------
+16. void	PlaySprite			( SPRITE spr, int frameST, int frameND, bool bLoop )	<-- o
+17. void	StopSprite			( SPRITE spr, bool bWaitCycle )							<-- o
+18. void	PauseSprite			( SPRITE spr )											<-- o
+19. void	ResumeSprite		( SPRITE spr )											<-- o
+//=================================================================================
 
 //=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
 // basic input
-20. bool	KeyDown				( int key )
-21. int		GetInputDirectionX	( void )
-22. int		GetInputDirectionY	( void )
+//----------------------------------------------------------------------------------
+20. bool	KeyDown				( int key )												--> o
+21. int		GetInputDirectionX	( void )												--> o
+22. int		GetInputDirectionY	( void )												--> o
+//=================================================================================
 
 //=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
 // basic camera
-23. void	SetCameraPosition	( float fX, float fY )
-24. void	SetCameraZoom		( float fZoom )
+//----------------------------------------------------------------------------------
+23. void	SetCameraPosition	( float fX, float fY )									<-- o
+24. void	SetCameraZoom		( float fZoom )											<-- o
+//=================================================================================
 
 //=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
 // basic sound
-25. SOUND	LoadSound			( string filename )
-26. void	PlaySound			( SOUND sound, bool bLoop )
-27. void	StopSound			( SOUND sound, bool bWaitCycle )
-28. void	PauseSound			( SOUND sound )
-29. void	ResumeSound			( SOUND sound )
-30. void	SetSoundVolume		( SOUND sound, float fVol )
-
+//----------------------------------------------------------------------------------
+25. SOUND	LoadSound			( string filename )										CUSTOM
+26. void	PlaySound			( SOUND sound, bool bLoop )								CUSTOM
+27. void	StopSound			( SOUND sound, bool bWaitCycle )						CUSTOM
+28. void	PauseSound			( SOUND sound )											CUSTOM
+29. void	ResumeSound			( SOUND sound )											CUSTOM
+30. void	SetSoundVolume		( SOUND sound, float fVol )								CUSTOM
+//----------------------------------------------------------------------------------
 // global sound
-31. void	StopAllSounds		( )
-32. void	SetMasterVolume		( float fVol )
+//----------------------------------------------------------------------------------
+31. void	StopAllSounds		( )														CUSTOM
+32. void	SetMasterVolume		( float fVol )											CUSTOM
+//=================================================================================
 
 //=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
 // basic fonts
-33. void	CreateFont			( int ID, string name, int size )
-
+//----------------------------------------------------------------------------------
+33. void	CreateFont			( int ID, string name, int size )						    o -->
+//----------------------------------------------------------------------------------
 //basic text
-34. void	DrawText			( string text, int x, int y )
-35. void	DrawText			( string text, int x, int y, int fontID )
-36. void	DrawText			( string text, int x, int y, int fontID, int r, int g, int b )
-37. void	SetTextColor		( int r, int g, int b )
-38. void	SetTextFont			( int fontID )
+//----------------------------------------------------------------------------------
+34. void	DrawText			( string text, int x, int y )							<-- o
+35. void	DrawText			( string text, int x, int y, int fontID )				<-- o
+36. void	DrawText			( string text, int x, int y, int fontID,				
+								  int r, int g, int b )									<-- o
+37. void	SetTextColor		( int r, int g, int b )									<-- o
+38. void	SetTextFont			( int fontID )											<-- o
+//=================================================================================
 
+//=================================================================================
+//=================================================================================
+//----------------------------------------------------------------------------------
+// general purpose
+//----------------------------------------------------------------------------------
+254. void	FTSInit				( )														    o
+255. void	Sync				( )														--> o -->
+//=================================================================================
