@@ -1,14 +1,7 @@
 import struct
 import socket
-import hash
 
-TABLESIZE = 1000
-
-funSymbol = "c"
 clientsocket = None
-
-def MyVeryCoolHashFunctionDotComOofOne (index):
-	index % TABLESIZE
 
 def SEND ( msg ):
 	clientsocket.send ( msg )
@@ -20,8 +13,8 @@ def RECIEVE():
 def InitFTSArcade ( ):
 	clientsocket = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
 	clientsocket.connect (("localhost", 5730))
-	IMAGETABLE = CreateHashTable ( TABLESIZE )
-	SPRITETABLE = CreateHashTable ( TABLESIZE )
+	ImagesInit ( )
+	SpritesInit ( )
 
 def sync():
 	return 0
