@@ -1,7 +1,7 @@
 import struct
 import socket
-import image
-import sprite
+from image import *
+from sprite import *
 
 clientsocket = None
 

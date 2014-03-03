@@ -1,6 +1,6 @@
 #Small testing game
 
-import main
+from main import *
 
 print ("one")
 FTSInit ( )
