@@ -12,7 +12,7 @@ def HTlookUp(hashTable, HashFun, ID):
 		if i.ID == ID:
 			return i
 
-def HTInstert(hashTable, HashFun, obj):
+def HTInsert(hashTable, HashFun, obj):
 	hashTable[HashFun(obj)].append(obj)
 
 

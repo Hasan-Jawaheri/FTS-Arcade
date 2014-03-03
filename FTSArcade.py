@@ -11,5 +11,5 @@ def FTSInit ( ):
 	ImagesInit ( )
 	SpritesInit ( )
 
-def Sync():
+def Sync ( ):
 	return 0
