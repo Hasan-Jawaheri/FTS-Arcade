@@ -14,7 +14,7 @@ def RECIEVE():
 
 def FTSInit ( ):
 	clientsocket = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-	clientsocket.connect (("localhost", 5730))
+	clientsocket.connect (("192.168.100.3", 5730))
 	ImagesInit ( )
 	SpritesInit ( )
 

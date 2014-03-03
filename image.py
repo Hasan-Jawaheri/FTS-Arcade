@@ -1,3 +1,4 @@
+from hash import *
 
 class IMAGE:
 	ID = 0 
