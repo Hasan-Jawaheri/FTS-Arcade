@@ -1,10 +1,14 @@
 
 class IMAGE:
 	ID = 0 
-   	width = 0
-   	height = 0
+	width = 0
+	height = 0
 
 IMAGETABLE = None
+TABLESIZE = 1000
+
+def ImagesInit():
+	IMAGETABLE = CreateHashTable ( TABLESIZE )
 
 def LoadImage ( filename, sx, sy ):
     ar = bytearray(map ((lambda x: ord(x)), list(filename)))
