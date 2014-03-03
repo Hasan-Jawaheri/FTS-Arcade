@@ -1,3 +1,4 @@
+from hash import *
 
 class SPRITE:
 	ID = 0
@@ -5,6 +6,10 @@ class SPRITE:
 	RowNum = 0
 
 SPRITETABLE = None
+TABLESIZE = 1000
+
+def SpritesInit():
+	SPRITETABLE = CreateHashTable ( TABLESIZE )
 
 def CreateSprite (image):
 	SEND (bytes([0x2]) + struct.pack ("i", image))
