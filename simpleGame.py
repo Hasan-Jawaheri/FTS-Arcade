@@ -1,6 +1,7 @@
 # Small testing game
 
 from FTSArcade import *
+import time
 
 pic1 = LoadImage ("C:\\Users\\Hasan\\Documents\\Visual Studio 2013\\Projects\RPG\\Map Importer\\arena.bmp")
 sprite1 = CreateSprite(pic1)
