@@ -19,9 +19,9 @@
 //   width  (unsigned int)
 //   height (unsigned int)
 //----------------------------------------------------------------------------------
-0.  IMAGE	LoadImage			( string filename, int sliceX = 1, int sliceY = 1 )		<-- o <->
-1.  int		GetImageWidth		( IMAGE img )											--> o
-2.  int		GetImageHeight		( IMAGE img )											--> o
+1.  IMAGE	LoadImage			( string filename, int sliceX = 1, int sliceY = 1 )		<-- o <->
+-.  int		GetImageWidth		( IMAGE img )											--> o
+-.  int		GetImageHeight		( IMAGE img )											--> o
 //=================================================================================
 
 //=================================================================================
@@ -41,29 +41,29 @@
 //   bLooping   (bool)
 //   bPaused    (bool)
 //----------------------------------------------------------------------------------
-3.  SPRITE	CreateSprite		( IMAGE img )											<-- o <->
-4.  void	SetSpritePosition	( SPRITE spr, int x, int y )							<-- o
-5.  void	SetSpriteAngle		( SPRITE spr, float fAngle )							<-- o
-6.  void	RotateSprite		( SPRITE spr, float fAngle )							<-- o
-7.  void	MoveSprite			( SPRITE spr, float fUnits )							<-- o
-8.  void	StrafeSprite		( SPRITE spr, float fUnits )							<-- o
-9.	void	SetSpriteSize		( SPRITE spr, int sx, int sy )							<-- o
-10. int		GetSpritePositionX	( SPRITE spr )											--> o
-11. int 	GetSpritePositionY	( SPRITE spr )											--> o
-12. int		GetSpriteSizeX		( SPRITE spr )											--> o
-13. int		GetSpriteSizeY		( SPRITE spr )											--> o
-14.	float	GetSpriteAngle		( SPRITE spr )											--> o
+2.  SPRITE	CreateSprite		( IMAGE img )											<-- o <->
+-.  void	SetSpritePosition	( SPRITE spr, int x, int y )							<-- o
+-.  void	SetSpriteAngle		( SPRITE spr, float fAngle )							<-- o
+-.  void	RotateSprite		( SPRITE spr, float fAngle )							<-- o
+-.  void	MoveSprite			( SPRITE spr, float fUnits )							<-- o
+-.  void	StrafeSprite		( SPRITE spr, float fUnits )							<-- o
+-.	void	SetSpriteSize		( SPRITE spr, int sx, int sy )							<-- o
+-.	int		GetSpritePositionX	( SPRITE spr )											--> o
+-.	int 	GetSpritePositionY	( SPRITE spr )											--> o
+-.	int		GetSpriteSizeX		( SPRITE spr )											--> o
+-.	int		GetSpriteSizeY		( SPRITE spr )											--> o
+-.	float	GetSpriteAngle		( SPRITE spr )											--> o
 //----------------------------------------------------------------------------------
 // sprite manipulation
 //----------------------------------------------------------------------------------
-15.  void	FlipSprite			( SPRITE spr, int H, int V )							<-- o
+-.  void	FlipSprite			( SPRITE spr, int H, int V )							<-- o
 //----------------------------------------------------------------------------------
 // sprite animation
 //----------------------------------------------------------------------------------
-16. void	PlaySprite			( SPRITE spr, int frameST, int frameND, bool bLoop )	<-- o
-17. void	StopSprite			( SPRITE spr, bool bWaitCycle )							<-- o
-18. void	PauseSprite			( SPRITE spr )											<-- o
-19. void	ResumeSprite		( SPRITE spr )											<-- o
+-. 	void	PlaySprite			( SPRITE spr, int frameST, int frameND, bool bLoop )	<-- o
+-. 	void	StopSprite			( SPRITE spr, bool bWaitCycle )							<-- o
+-. 	void	PauseSprite			( SPRITE spr )											<-- o
+-. 	void	ResumeSprite		( SPRITE spr )											<-- o
 //=================================================================================
 
 //=================================================================================
@@ -72,9 +72,9 @@
 // BASIC INPUT
 // Use a python library
 //----------------------------------------------------------------------------------
-20. bool	KeyDown				( int key )												--> o
-21. int		GetInputDirectionX	( void )												--> o
-22. int		GetInputDirectionY	( void )												--> o
+-. 	bool	KeyDown				( int key )												--> o
+-. 	int		GetInputDirectionX	( void )												--> o
+-. 	int		GetInputDirectionY	( void )												--> o
 //=================================================================================
 
 //=================================================================================
@@ -86,8 +86,8 @@
 //   position (vector2)
 //   zoom     (float)
 //----------------------------------------------------------------------------------
-23. void	SetCameraPosition	( float fX, float fY )									<-- o
-24. void	SetCameraZoom		( float fZoom )											<-- o
+-. 	void	SetCameraPosition	( float fX, float fY )									<-- o
+-. 	void	SetCameraZoom		( float fZoom )											<-- o
 //=================================================================================
 
 //=================================================================================
@@ -96,17 +96,17 @@
 // BASIC SOUND
 // Use an external library
 //----------------------------------------------------------------------------------
-25. SOUND	LoadSound			( string filename )										CUSTOM
-26. void	PlaySound			( SOUND sound, bool bLoop )								CUSTOM
-27. void	StopSound			( SOUND sound, bool bWaitCycle )						CUSTOM
-28. void	PauseSound			( SOUND sound )											CUSTOM
-29. void	ResumeSound			( SOUND sound )											CUSTOM
-30. void	SetSoundVolume		( SOUND sound, float fVol )								CUSTOM
+-. 	SOUND	LoadSound			( string filename )										CUSTOM
+-. 	void	PlaySound			( SOUND sound, bool bLoop )								CUSTOM
+-. 	void	StopSound			( SOUND sound, bool bWaitCycle )						CUSTOM
+-. 	void	PauseSound			( SOUND sound )											CUSTOM
+-. 	void	ResumeSound			( SOUND sound )											CUSTOM
+-. 	void	SetSoundVolume		( SOUND sound, float fVol )								CUSTOM
 //----------------------------------------------------------------------------------
 // GLOBAL SOUND
 //----------------------------------------------------------------------------------
-31. void	StopAllSounds		( )														CUSTOM
-32. void	SetMasterVolume		( float fVol )											CUSTOM
+-. 	void	StopAllSounds		( )														CUSTOM
+-. 	void	SetMasterVolume		( float fVol )											CUSTOM
 //=================================================================================
 
 //=================================================================================
@@ -115,7 +115,7 @@
 // BASIC FONTS
 // Fonts are not stored locally.
 //----------------------------------------------------------------------------------
-33. void	CreateFont			( int ID, string name, int size )						    o -->
+3. void	CreateFont			( int ID, string name, int size )						    o -->
 //----------------------------------------------------------------------------------
 // BASIC TEXT
 // Text is stored in structures on the python side and are sent to C++ in sync()
@@ -125,12 +125,12 @@
 //   text   (string)
 //   color  (3 characters(bytes))
 //----------------------------------------------------------------------------------
-34. void	DrawText			( string text, int x, int y )							<-- o
-35. void	DrawText			( string text, int x, int y, int fontID )				<-- o
-36. void	DrawText			( string text, int x, int y, int fontID,				
+-. 	void	DrawText			( string text, int x, int y )							<-- o
+-. 	void	DrawText			( string text, int x, int y, int fontID )				<-- o
+-. 	void	DrawText			( string text, int x, int y, int fontID,				
 								  int r, int g, int b )									<-- o
-37. void	SetTextColor		( int r, int g, int b )									<-- o
-38. void	SetTextFont			( int fontID )											<-- o
+-. 	void	SetTextColor		( int r, int g, int b )									<-- o
+-. 	void	SetTextFont			( int fontID )											<-- o
 //=================================================================================
 
 //=================================================================================
@@ -143,6 +143,6 @@
 // program to the C++ side asking it to draw the frame. Sync() must flush the text
 // buffers because they are refilled every frame (by the user).
 //----------------------------------------------------------------------------------
-254. void	FTSInit				( )														    o
-255. void	Sync				( )														--> o -->
+-. 	void	FTSInit				( )														    o
+0.	 void	Sync				( )														--> o -->
 //=================================================================================
