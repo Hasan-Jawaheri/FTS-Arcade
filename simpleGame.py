@@ -2,13 +2,14 @@
 
 import main
 
+FTSInit ( )
+
 pic1 = LoadImage ("kofta.jpeg")
-sprite1 = LoadSprite(pic1,1,1)
+sprite1 = CreateSprite(pic1)
 SetSpritePosition(sprite1, 0, 200)
 
-while true:
+while True:
     fDeltaTime = 1.0 / 60.0
-    MoveSprite ( sprite1, 5.0 * fDeltaTime)
-    
-
+    MoveSprite ( sprite1, 5.0 * fDeltaTime )
+    Sync ( )
     
