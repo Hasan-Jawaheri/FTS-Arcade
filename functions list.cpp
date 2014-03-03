@@ -15,13 +15,13 @@
 // A local copy of the image information has to be stored on python for instant
 // access to size.
 // IMAGE LOCAL COPY:
-//   ID    (unsigned int)
-//   sizeX (unsigned int)
-//   sizeY (unsigned int)
+//   ID     (unsigned int)
+//   width  (unsigned int)
+//   height (unsigned int)
 //----------------------------------------------------------------------------------
 0.  IMAGE	LoadImage			( string filename, int sliceX = 1, int sliceY = 1 )		<-- o <->
-1.  int		GetImageSizeX		( IMAGE img )											--> o
-2.  int		GetImageSizeY		( IMAGE img )											--> o
+1.  int		GetImageWidth		( IMAGE img )											--> o
+2.  int		GetImageHeight		( IMAGE img )											--> o
 //=================================================================================
 
 //=================================================================================
@@ -33,13 +33,13 @@
 // A local copy of the sprite information has to be stored on python for instant
 // movement/access.
 // SPRITE LOCAL COPY:
-//   ID         
-//   position
-//   size
-//   flipState
-//   bPlaying
-//   bLooping
-//   bPaused
+//   ID         (unsigned int)
+//   position   (vector2)
+//   size       (vector2)
+//   flipState  (char)    'a' = no flip, 'b' = hFlip, 'c' = vFlip, 'd' = h+vFlip
+//   bPlaying   (bool)
+//   bLooping   (bool)
+//   bPaused    (bool)
 //----------------------------------------------------------------------------------
 3.  SPRITE	CreateSprite		( IMAGE img )											<-- o <->
 4.  void	SetSpritePosition	( SPRITE spr, int x, int y )							<-- o
@@ -69,7 +69,8 @@
 //=================================================================================
 //=================================================================================
 //----------------------------------------------------------------------------------
-// basic input
+// BASIC INPUT
+// Use a python library
 //----------------------------------------------------------------------------------
 20. bool	KeyDown				( int key )												--> o
 21. int		GetInputDirectionX	( void )												--> o
@@ -79,7 +80,11 @@
 //=================================================================================
 //=================================================================================
 //----------------------------------------------------------------------------------
-// basic camera
+// BASIC CAMERA
+// A camera is a shift of coordinates for sprites.
+// CAMERA LOCAL COPY
+//   position (vector2)
+//   zoom     (float)
 //----------------------------------------------------------------------------------
 23. void	SetCameraPosition	( float fX, float fY )									<-- o
 24. void	SetCameraZoom		( float fZoom )											<-- o
@@ -88,7 +93,8 @@
 //=================================================================================
 //=================================================================================
 //----------------------------------------------------------------------------------
-// basic sound
+// BASIC SOUND
+// Use an external library
 //----------------------------------------------------------------------------------
 25. SOUND	LoadSound			( string filename )										CUSTOM
 26. void	PlaySound			( SOUND sound, bool bLoop )								CUSTOM
@@ -97,7 +103,7 @@
 29. void	ResumeSound			( SOUND sound )											CUSTOM
 30. void	SetSoundVolume		( SOUND sound, float fVol )								CUSTOM
 //----------------------------------------------------------------------------------
-// global sound
+// GLOBAL SOUND
 //----------------------------------------------------------------------------------
 31. void	StopAllSounds		( )														CUSTOM
 32. void	SetMasterVolume		( float fVol )											CUSTOM
@@ -106,11 +112,18 @@
 //=================================================================================
 //=================================================================================
 //----------------------------------------------------------------------------------
-// basic fonts
+// BASIC FONTS
+// Fonts are not stored locally.
 //----------------------------------------------------------------------------------
 33. void	CreateFont			( int ID, string name, int size )						    o -->
 //----------------------------------------------------------------------------------
-//basic text
+// BASIC TEXT
+// Text is stored in structures on the python side and are sent to C++ in sync()
+// calls. ERASE ALL TEXT DATA EVERY SYNC.
+// TEXT LOCAL COPY:
+//   fontID (int)
+//   text   (string)
+//   color  (3 characters(bytes))
 //----------------------------------------------------------------------------------
 34. void	DrawText			( string text, int x, int y )							<-- o
 35. void	DrawText			( string text, int x, int y, int fontID )				<-- o
@@ -123,7 +136,12 @@
 //=================================================================================
 //=================================================================================
 //----------------------------------------------------------------------------------
-// general purpose
+// GENERAL PURPOSE
+// FTSInit() will establish a connection between the python code and the C++ server.
+// It will also initialize any internal data structures.
+// Sync() is the heart of the program. Sync() will send the current state of the
+// program to the C++ side asking it to draw the frame. Sync() must flush the text
+// buffers because they are refilled every frame (by the user).
 //----------------------------------------------------------------------------------
 254. void	FTSInit				( )														    o
 255. void	Sync				( )														--> o -->
