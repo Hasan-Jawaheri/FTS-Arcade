@@ -2,6 +2,7 @@ import HashTable
 import main
 import struct
 import image
+import math
 
 class SPRITE:
   
@@ -21,6 +22,15 @@ class SPRITE:
 def SPRITEHASHFUNCTION (x):
   return x % 1000
 
+def GetSprite(sprite):
+  return HashTable.HTlookUp(main.SPRITETABLE, SPRITEHASHFUNCTION, sprite)
+
+def DegToRad(degree):
+  return (math.pi / 180.0) * degree
+
+def RadToDeg(radian):
+  return (180.0 / math.pi) * degree
+
 def SpritesInit():
   main.SPRITETABLE = HashTable.CreateHashTable ( main.TABLESIZE )
 
@@ -34,16 +44,77 @@ def CreateSprite (image):
   return reply[0]
 
 def SetSpritePosition(sprite, px, py):
-  x = HashTable.HTlookUp(main.SPRITETABLE, SPRITEHASHFUNCTION, sprite)
+  x = GetSprite(sprite)
   if x != None:
     x.position = (px, py)
 
 def MoveSprite(sprite, fUnits):
-  x = HashTable.HTlookUp(main.SPRITETABLE, SPRITEHASHFUNCTION, sprite)
+  x = GetSprite(sprite)
   if x != None:
     x.position = (x.position[0] + x.look[0] * fUnits,
                   x.position[1] + x.look[1] * fUnits)
-  
+
+def SetSpriteAngle(sprite, fAngle):
+  x = GetSprite(sprite)
+  if x != None:
+    x.look = (math.cos(DegToRad(fAngle)), math.sin(DegToRad(fAngle)))
+
+def GetSpriteAngle(sprite):
+  x = GetSprite(sprite)
+  if x != None:
+    ang = RadToDeg(math.acos(x.look[0]))
+    if x.look[1] < 0:
+      return -ang
+    else:
+      return ang
+  return 0.0
+
+def RotateSprite(sprite, fAngle):
+  x = GetSprite(sprite)
+  angle = GetSpriteAngle(sprite)
+  if x != None:
+    x.look = SetSpriteAngle(sprite, fAngle + angle)
+
+def StrafeSprite(sprite, fUnits):
+  x = GetSprite(sprite)
+  up = (math.cos(DegToRad(fAngle + 90.0)),
+        math.sin(DegToRad(fAngle + 90.0)))
+  if x != None:
+    x.position = (x.position[0] + up[0] * fUnits,
+                  x.position[1] + up[1] * fUnits)
+
+def SetSpriteSize(sprite, width, height):
+  x = GetSprite(sprite)
+  if x != None:
+    x.size = (width, height)
+
+def GetSpritePositionX(sprite):
+  x = GetSprite(sprite)
+  if x != None:
+    return x.position[0]
+  else:
+    return 0
+
+def GetSpritePositionY(sprite):
+  x = GetSprite(sprite)
+  if x != None:
+    return x.position[1]
+  else:
+    return 0
+
+def GetSpriteSizeX(sprite):
+  x = GetSprite(sprite)
+  if x != None:
+    return x.size[0]
+  else:
+    return 0
+
+def GetSpriteSizeY(sprite):
+  x = GetSprite(sprite)
+  if x != None:
+    return x.size[1]
+  else:
+    return 0
 
 def SyncSprites():
   spritesList = bytearray([])
