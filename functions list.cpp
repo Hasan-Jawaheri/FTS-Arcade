@@ -53,8 +53,8 @@
 -.  void    SetSpriteSize       ( SPRITE spr, int sx, int sy )                          <-- o
 -.  int     GetSpritePositionX  ( SPRITE spr )                                          --> o
 -.  int     GetSpritePositionY  ( SPRITE spr )                                          --> o
--.  int     GetSpriteSizeX      ( SPRITE spr )                                          --> o
--.  int     GetSpriteSizeY      ( SPRITE spr )                                          --> o
+-.  int     GetSpriteWidth      ( SPRITE spr )                                          --> o
+-.  int     GetSpriteHeight     ( SPRITE spr )                                          --> o
 -.  float   GetSpriteAngle      ( SPRITE spr )                                          --> o
 -.  void    ShowSprite          ( SPRITE spr )                                          <-- o
 -.  void    HideSprite          ( SPRITE spr )                                          <-- o
