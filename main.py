@@ -1,11 +1,13 @@
 import socket
 import struct
+import ctypes
 
 CLIENTSOCKET = None
 IMAGETABLE = None
 SPRITETABLE = None
 TABLESIZE = 1000
 DELTATIME = 1.0 / 60.0
+INPUTDLL = None
 
 def SEND ( msg ):
   CLIENTSOCKET.send ( msg )
