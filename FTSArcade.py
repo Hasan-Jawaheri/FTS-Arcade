@@ -31,6 +31,6 @@ def FTSInit ( ):
 
 def Sync ( ):
   fullmsg = SyncSprites ( )
-  main.SEND ( (struct.pack("ii",0, fullmsg[1])) + fullmsg[0] )
+  main.SEND ( (struct.pack("ii", 0, fullmsg[1])) + fullmsg[0] )
 
 FTSInit ( )

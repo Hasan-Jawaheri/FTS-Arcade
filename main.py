@@ -10,7 +10,6 @@ DELTATIME = 1.0 / 60.0
 INPUTDLL = None
 
 def SEND ( msg ):
-  print msg
   CLIENTSOCKET.send ( msg )
 
 def RECEIVE ( r, len ):
