@@ -16,7 +16,7 @@ def GetInputDirectionY ( ):
   return getattr(main.INPUTDLL, "?GetInputDirectionY@@YAHXZ") ( )
 
 def FTSInit ( ):
-  main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
+  #main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
   #import time
   #time.sleep(2)
   #while True:
