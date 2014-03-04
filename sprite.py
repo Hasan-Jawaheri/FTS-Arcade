@@ -43,12 +43,15 @@ def MoveSprite(sprite, fUnits):
   
 
 def SyncSprites():
-  spritesList = []
-  for i in SPRITETABLE:
+  spritesList = bytearray([])
+  numSprites = 0
+  for i in main.SPRITETABLE:
     for j in i:
-      spritesList.append(
-        struct.pack ("iffffffc???", j.ID, j.position, j.size, j.look, j.flipState,
-                      j.bPlaying, j.bLooping, j.bPaused))
-
-  print spritesList
+      numSprites += 1
+      k = struct.pack ("iffffffc???", j.ID, j.position[0], j.position[1],
+                      j.size[0], j.size[1], j.look[0], j.look[1], j.flipState,
+                      j.bPlaying, j.bLooping, j.bPaused)
+      spritesList += k
+  return ((struct.pack("i", numSprites)) + spritesList,
+          4 + numSprites * 32)
 

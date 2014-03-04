@@ -30,6 +30,7 @@ def FTSInit ( ):
   SpritesInit ( )
 
 def Sync ( ):
-  SyncSprites ()
+  fullmsg = SyncSprites ( )
+  main.SEND ( (struct.pack("ii",0, fullmsg[1])) + fullmsg[0] )
 
 FTSInit ( )
