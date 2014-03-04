@@ -47,6 +47,7 @@
 -.  void    SetSpritePosition   ( SPRITE spr, int x, int y )                            <-- o
 -.  void    SetSpriteAngle      ( SPRITE spr, float fAngle )                            <-- o
 -.  void    RotateSprite        ( SPRITE spr, float fAngle )                            <-- o
+-.  void    PointSprite         ( SPRITE spr, int x, int y )                            <-- o
 -.  void    MoveSprite          ( SPRITE spr, float fUnits )                            <-- o
 -.  void    StrafeSprite        ( SPRITE spr, float fUnits )                            <-- o
 -.  void    SetSpriteSize       ( SPRITE spr, int sx, int sy )                          <-- o
