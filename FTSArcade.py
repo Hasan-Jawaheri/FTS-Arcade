@@ -30,6 +30,6 @@ def FTSInit ( ):
   SpritesInit ( )
 
 def Sync ( ):
-  return 0
+  SyncSprites ()
 
 FTSInit ( )

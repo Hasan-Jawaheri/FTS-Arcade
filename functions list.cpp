@@ -36,6 +36,7 @@
 //   ID         (unsigned int)
 //   position   (vector2)
 //   size       (vector2)
+//   look       (vector2)
 //   flipState  (char)    'a' = no flip, 'b' = hFlip, 'c' = vFlip, 'd' = h+vFlip
 //   bPlaying   (bool)
 //   bLooping   (bool)
