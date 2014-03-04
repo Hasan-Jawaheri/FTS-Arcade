@@ -17,9 +17,13 @@ def GetInputDirectionY ( ):
 
 def FTSInit ( ):
   main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
-  for i in range (0, 4):
-    print KeyDown ( i ),
-  print "\n", GetInputDirectionX ( ), GetInputDirectionY ( )
+  #import time
+  #time.sleep(2)
+  #while True:
+  #  for i in range (0, 32):
+  #    print KeyDown ( i ),
+  #  print "\n", GetInputDirectionX ( ), GetInputDirectionY ( )
+  #  time.sleep(1)
   main.CLIENTSOCKET = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
   main.CLIENTSOCKET.connect (("localhost", 5730))
   ImagesInit ( )
