@@ -32,3 +32,12 @@ def LoadImageSliced ( filename, sx, sy ):
 def LoadImage ( filename ):
   return LoadImageSliced ( filename, 1, 1 )
 
+def GetImageWidth(image):
+  x = HashTable.HTlookUp(main.IMAGETABLE, IMAGEHASHFUNCTION, image)
+  if x != None:
+    return x.width
+
+def GetImageHeight(image):
+  x = HashTable.HTlookUp(main.IMAGETABLE, IMAGEHASHFUNCTION, image)
+  if x != None:
+    return y.height
