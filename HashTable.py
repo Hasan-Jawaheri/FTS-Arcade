@@ -7,13 +7,13 @@ def CreateHashTable ( tableSize ):
   return ret
 
 def HTlookUp(hashTable, HashFun, ID):
-  index = HashFun ( obj )
+  index = HashFun ( ID )
   for i in hashTable[index]:
     if i.ID == ID:
       return i
 
 def HTInsert(hashTable, HashFun, obj):
-  hashTable[HashFun(obj)].append(obj)
+  hashTable[HashFun(obj.ID)].append(obj)
 
 
 

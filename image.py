@@ -8,7 +8,7 @@ class IMAGE:
   height = 0
 
 def IMAGEHASHFUNCTION (x):
-  return x.ID % 1000
+  return x % 1000
 
 def ImagesInit():
   main.IMAGETABLE = HashTable.CreateHashTable ( main.TABLESIZE )

@@ -17,7 +17,7 @@ class SPRITE:
   # TODO: ADD SPRITE ATTRIBUTES
 
 def SPRITEHASHFUNCTION (x):
-  return x.ID % 1000
+  return x % 1000
 
 def SpritesInit():
   main.SPRITETABLE = HashTable.CreateHashTable ( main.TABLESIZE )
@@ -32,12 +32,12 @@ def CreateSprite (image):
   return reply[0]
 
 def SetSpritePosition(sprite, px, py):
-  x = HTlookUp(SPRITETABLE, SPRITEHASHFUNCTION, sprite)
+  x = HashTable.HTlookUp(main.SPRITETABLE, SPRITEHASHFUNCTION, sprite)
   if x != None:
     x.position = (px, py)
 
 def MoveSprite(sprite, fUnits):
-  x = HTlookUp(SPRITETABLE, SPRITEHASHFUNCTION, sprite)
+  x = HashTable.HTlookUp(main.SPRITETABLE, SPRITEHASHFUNCTION, sprite)
   if x != None:
     x.position = (x.position[0] * fUnits, x.position[1] * fUnits)
   
