@@ -37,7 +37,8 @@
 //   position   (vector2)
 //   size       (vector2)
 //   look       (vector2)
-//   flipState  (char)    'a' = no flip, 'b' = hFlip, 'c' = vFlip, 'd' = h+vFlip
+//   bHidden    (bool)
+//   flipState  (char)    0 = no flip, 1 = hFlip, 2 = vFlip, 3 = h+vFlip
 //   bPlaying   (bool)
 //   bLooping   (bool)
 //   bPaused    (bool)
@@ -54,6 +55,9 @@
 -.  int     GetSpriteSizeX      ( SPRITE spr )                                          --> o
 -.  int     GetSpriteSizeY      ( SPRITE spr )                                          --> o
 -.  float   GetSpriteAngle      ( SPRITE spr )                                          --> o
+-.  void    ShowSprite          ( SPRITE spr )                                          <-- o
+-.  void    HideSprite          ( SPRITE spr )                                          <-- o
+-.  void    SetSpritePriority   ( SPRITE spr, int priority )                            <-- o
 //----------------------------------------------------------------------------------
 // sprite manipulation
 //----------------------------------------------------------------------------------
