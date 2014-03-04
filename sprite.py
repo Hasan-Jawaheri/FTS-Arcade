@@ -4,12 +4,13 @@ import struct
 
 class SPRITE:
   
-  def __init__(self, id):
+  def __init__(self, id, imgID):
     self.ID = id
+    self.imageID = imgID
     self.position = (0.0, 0.0)
     self.size = (0.0, 0.0)
     self.look = (1.0, 0.0)
-    self.flipState = 'a'
+    self.flipState = chr(0)
     self.bPlaying = False
     self.bLooping = False
     self.bPaused = False
@@ -48,7 +49,7 @@ def SyncSprites():
   for i in main.SPRITETABLE:
     for j in i:
       numSprites += 1
-      k = struct.pack ("iffffffc???", j.ID, j.position[0], j.position[1],
+      k = struct.pack ("iiffffffc???", j.ID, j.imageID, j.position[0], j.position[1],
                       j.size[0], j.size[1], j.look[0], j.look[1], j.flipState,
                       j.bPlaying, j.bLooping, j.bPaused)
       spritesList += k

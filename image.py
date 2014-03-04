@@ -3,9 +3,10 @@ import main
 import struct
 
 class IMAGE:
-  ID = 0 
-  width = 0
-  height = 0
+  def __init__(self, id, width, height):
+    self.ID = id
+    self.width = width
+    self.height = height
 
 def IMAGEHASHFUNCTION (x):
   return x % 1000
@@ -22,10 +23,7 @@ def LoadImageSliced ( filename, sx, sy ):
   # send function 1 to server [1:4][filename:256][sx:4][sy:4]
   main.SEND ( struct.pack ( "i", 1 ) + ar + struct.pack ( "ii", sx, sy ) )
   reply = main.RECEIVE ( "iii", 12 ) # get a response [ID,width,height]
-  img = IMAGE()
-  img.ID = reply[0]
-  img.width = reply[1]
-  img.height = reply[2]
+  img = IMAGE(reply[0], reply[1], reply[2])
   HashTable.HTInsert ( main.IMAGETABLE, IMAGEHASHFUNCTION, img )
   return reply[0] # return the ID
 
@@ -40,4 +38,4 @@ def GetImageWidth(image):
 def GetImageHeight(image):
   x = HashTable.HTlookUp(main.IMAGETABLE, IMAGEHASHFUNCTION, image)
   if x != None:
-    return y.height
+    return x.height
