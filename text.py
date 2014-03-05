@@ -50,9 +50,10 @@ def SyncText():
       ar += bytearray([0])
 
     numText += 1
-    k = struct.pack ("iscccff", i.ID, ar, i.color[0], i.color[1],
+    k = struct.pack ("iscccii", i.ID, ar, i.color[0], i.color[1],
                     i.color[2], i.position[0], i.position[1])
     TextList += k
 
+  main.TEXTLIST = []
   return ((struct.pack("i", numText)) + TextList, numText * 271)
 
