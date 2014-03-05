@@ -31,6 +31,9 @@ def FTSInit ( ):
 
 def Sync ( ):
   fullmsg = SyncSprites ( )
-  main.SEND ( (struct.pack("ii", 0, fullmsg[1])) + fullmsg[0] )
+  cameraData = SyncCamera ( )
+  TextData = SyncText ( )
+  main.SEND ( (struct.pack("ii", 0, cameraData[1] + fullmsg[1] + TextData[1])) 
+            + cameraData[0] + fullmsg[0] + TextData[0] )
 
 FTSInit ( )
