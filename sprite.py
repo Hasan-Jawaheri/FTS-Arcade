@@ -5,7 +5,6 @@ import image
 import math
 
 class SPRITE:
-  
   def __init__(self, id, imgID):
     self.ID = id
     self.imageID = imgID
