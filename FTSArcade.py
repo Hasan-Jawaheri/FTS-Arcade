@@ -37,8 +37,8 @@ def Sync ( ):
   fullmsg = SyncSprites ( )
   cameraData = SyncCamera ( )
   TextData = SyncText ( )
-  print cameraData[1] + fullmsg[1] + TextData[1]
   main.SEND ( (struct.pack("ii", 0, cameraData[1] + fullmsg[1] + TextData[1])) 
             + cameraData[0] + fullmsg[0] + TextData[0] )
+  dummy = main.RECEIVE ( "i", 4 ) # just to stay in sync
 
 FTSInit ( )

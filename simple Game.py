@@ -12,7 +12,7 @@ SetSpritePosition(sprite2, 10, 10)
 tm = time.time ( )
 while time.time ( ) - tm < 15.0:
   fDeltaTime = 1.0 / 60.0
-  MoveSprite ( sprite1, 1.0 * fDeltaTime )
-  MoveSprite ( sprite2, 2.0 * fDeltaTime )
+  MoveSprite ( sprite1, 100.0 * fDeltaTime )
+  MoveSprite ( sprite2, 200.0 * fDeltaTime )
   DrawText ( "yal3an thalwajh", 5, 6 )
   Sync ( )
