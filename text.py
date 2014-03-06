@@ -3,9 +3,9 @@ import struct
 
 class TEXT():
   def __init__(self, ID, text, r, g, b, x, y):
-    self.FontID = ID
+    self.fontID = ID
     self.text = text
-    self.color = (chr(r), chr(g), chr(b))
+    self.color = (chr(r), chr(g), chr(b),255)
     self.position = (x,y)
 
 def CreateFont(ID, name, size):
@@ -29,9 +29,9 @@ def DrawText(text, x, y):
               x, 
               y,
               main.CURFONTID, 
-              main.CURFONTCOLOR[0],
-              main.CURFONTCOLOR[1],
-              main.CURFONTCOLOR[2])
+              ord(main.CURFONTCOLOR[0]),
+              ord(main.CURFONTCOLOR[1]),
+              ord(main.CURFONTCOLOR[2]))
 
 def SetTextColor(r,g,b):
   main.CURFONTCOLOR = (chr(r), chr(g), chr(b))
@@ -50,10 +50,11 @@ def SyncText():
       ar += bytearray([0])
 
     numText += 1
-    k = struct.pack ("iscccii", i.ID, ar, i.color[0], i.color[1],
-                    i.color[2], i.position[0], i.position[1])
+    k = struct.pack ("i", i.fontID) + ar
+    k = k + struct.pack("cccii", i.color[0], i.color[1], i.color[2],
+                              i.position[0], i.position[1])
     TextList += k
 
   main.TEXTLIST = []
-  return ((struct.pack("i", numText)) + TextList, numText * 271)
+  return ((struct.pack("i", numText)) + TextList, numText * 272 + 4)
 

@@ -1,7 +1,7 @@
 import socket
 import struct
 import ctypes
-import camera
+from camera import *
 
 CLIENTSOCKET = None
 IMAGETABLE = None
