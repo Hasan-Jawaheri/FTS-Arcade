@@ -10,7 +10,9 @@ from camera import *
 from text import *
 
 def KeyDown ( key ):
-  return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( key )
+  return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( ord(key) ) == -32767
+def KeyUp ( key ):
+  return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( ord(key) ) == 1
 
 def GetInputDirectionX ( ):
   return getattr(main.INPUTDLL, "?GetInputDirectionX@@YAHXZ") ( )
@@ -19,7 +21,7 @@ def GetInputDirectionY ( ):
   return getattr(main.INPUTDLL, "?GetInputDirectionY@@YAHXZ") ( )
 
 def FTSInit ( ):
-  #main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
+  main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
   #import time
   #time.sleep(2)
   #while True:
