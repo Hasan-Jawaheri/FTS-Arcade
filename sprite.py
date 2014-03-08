@@ -28,7 +28,7 @@ def DegToRad(degree):
   return (math.pi / 180.0) * degree
 
 def RadToDeg(radian):
-  return (180.0 / math.pi) * degree
+  return (180.0 / math.pi) * radian
 
 def SpritesInit():
   main.SPRITETABLE = HashTable.CreateHashTable ( main.TABLESIZE )
@@ -70,9 +70,9 @@ def GetSpriteAngle(sprite):
 
 def RotateSprite(sprite, fAngle):
   x = GetSprite(sprite)
-  angle = GetSpriteAngle(sprite)
   if x != None:
-    x.look = SetSpriteAngle(sprite, fAngle + angle)
+    angle = GetSpriteAngle(sprite)
+    SetSpriteAngle(sprite, fAngle + angle)
 
 def StrafeSprite(sprite, fUnits):
   x = GetSprite(sprite)
