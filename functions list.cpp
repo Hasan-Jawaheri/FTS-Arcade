@@ -20,6 +20,7 @@
 //   height (unsigned int)
 //----------------------------------------------------------------------------------
 1.  IMAGE   LoadImage           ( string filename, int sliceX = 1, int sliceY = 1 )     <-- o <->
+4.  void    DeleteImage         ( IMAGE img )                                           <-- o -->
 -.  int     GetImageWidth       ( IMAGE img )                                           --> o
 -.  int     GetImageHeight      ( IMAGE img )                                           --> o
 //=================================================================================
@@ -44,6 +45,8 @@
 //   bPaused    (bool)
 //----------------------------------------------------------------------------------
 2.  SPRITE  CreateSprite        ( IMAGE img )                                           <-- o <->
+4.  void    DeleteSprite        ( SPRITE spr )                                          <-- o -->
+-.  void    SetSpriteImage      ( SPRITE spr, IMAGE img )                               <-- o
 -.  void    SetSpritePosition   ( SPRITE spr, int x, int y )                            <-- o
 -.  void    SetSpriteAngle      ( SPRITE spr, float fAngle )                            <-- o
 -.  void    RotateSprite        ( SPRITE spr, float fAngle )                            <-- o
