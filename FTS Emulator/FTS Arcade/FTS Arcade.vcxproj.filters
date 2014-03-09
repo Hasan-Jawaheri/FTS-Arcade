@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0316221f-54aa-4fbc-bd55-8b0496f027bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{c531b08e-0a18-482e-9793-5d506faa0999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{41b97d76-b45f-4584-84f4-c674230fc88f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="process manager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="communication.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="API map.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main menu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="game running.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="process manager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="communication.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="API map.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="main menu.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="game running.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\background shader.ps">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>
