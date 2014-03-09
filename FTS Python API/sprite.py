@@ -76,6 +76,7 @@ def RotateSprite(sprite, fAngle):
 
 def StrafeSprite(sprite, fUnits):
   x = GetSprite(sprite)
+  fAngle = GetSpriteAngle(sprite)
   up = (math.cos(DegToRad(fAngle + 90.0)),
         math.sin(DegToRad(fAngle + 90.0)))
   if x != None:
@@ -101,14 +102,14 @@ def GetSpritePositionY(sprite):
   else:
     return 0
 
-def GetSpriteSizeX(sprite):
+def GetSpriteWidth(sprite):
   x = GetSprite(sprite)
   if x != None:
     return x.size[0]
   else:
     return 0
 
-def GetSpriteSizeY(sprite):
+def GetSpriteHeight(sprite):
   x = GetSprite(sprite)
   if x != None:
     return x.size[1]
