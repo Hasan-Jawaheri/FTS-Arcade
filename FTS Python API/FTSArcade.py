@@ -42,7 +42,7 @@ def FTSInit ( ):
   main.CLIENTSOCKET.connect (("localhost", port))
   ImagesInit ( )
   SpritesInit ( )
-  #Sync ( ) # set the initial width/height
+  Sync ( ) # set the initial width/height
 
 def Sync ( ):
   fullmsg = SyncSprites ( )

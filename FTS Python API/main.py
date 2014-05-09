@@ -21,7 +21,6 @@ def SEND ( msg ):
 def RECEIVE ( r, length ):
   received = CLIENTSOCKET.recv(length)
   ar = bytearray(map ((lambda x: ord(x)), list(received)))
-  print "[[[[", len(ar), ar, "]]]]"
   return struct.unpack(r, str(ar))
 
 def SPEED ( units ):
