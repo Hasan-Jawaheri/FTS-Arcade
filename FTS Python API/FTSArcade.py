@@ -9,8 +9,11 @@ from sprite import *
 from camera import *
 from text import *
 
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
+
 def KeyDown ( key ):
-  return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( ord(key) ) == -32767
+  return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( ord(key) )
 def KeyUp ( key ):
   return getattr(main.INPUTDLL, "?KeyDown@@YAHH@Z") ( ord(key) ) == 1
 
@@ -19,6 +22,11 @@ def GetInputDirectionX ( ):
 
 def GetInputDirectionY ( ):
   return getattr(main.INPUTDLL, "?GetInputDirectionY@@YAHXZ") ( )
+
+def GetScreenWidth ( ):
+  return SCREEN_WIDTH
+def GetScreenHeight ( ):
+  return SCREEN_HEIGHT
 
 def FTSInit ( ):
   main.INPUTDLL = ctypes.CDLL ( "InputHandler.dll" )
@@ -34,6 +42,7 @@ def FTSInit ( ):
   main.CLIENTSOCKET.connect (("localhost", port))
   ImagesInit ( )
   SpritesInit ( )
+  #Sync ( ) # set the initial width/height
 
 def Sync ( ):
   fullmsg = SyncSprites ( )
@@ -41,6 +50,8 @@ def Sync ( ):
   TextData = SyncText ( )
   main.SEND ( (struct.pack("ii", 0, cameraData[1] + fullmsg[1] + TextData[1])) 
             + cameraData[0] + fullmsg[0] + TextData[0] )
-  dummy = main.RECEIVE ( "i", 4 ) # just to stay in sync
+  info = main.RECEIVE ( "ii", 8 ) # just to stay in sync
+  SCREEN_WIDTH = info[0]
+  SCREEN_HEIGHT = info[1]
 
 FTSInit ( )

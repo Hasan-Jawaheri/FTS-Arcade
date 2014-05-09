@@ -32,6 +32,7 @@ void MainMenu::Load ( void ) {
 		HX_MAKEPROFILE ( 4, 0 ), "PS" );
 	bkgSpr->GetMaterial ( )->SetPixelShader ( bkgPS );
 	sliders[0] = sliders[1] = 0.0f;
+	fFill = 0.0f;
 	fTimer[0] = fTimer[1] = 0;
 
 	selection = 0;
@@ -100,17 +101,14 @@ void MainMenu::Update ( float fDeltaTime ) {
 
 	core->Renderer->SetFont ( UINT_MAX - 2 );
 	core->Renderer->RenderText ( path, 10, 10,
-		UINT_MAX - 2, hxColor ( 0.2, 0.0, 0.7 ) );
+		UINT_MAX - 2, hxColor ( 0.2, 0.0, 0.7, 1 - fFill ) );
 	for ( UINT i = 0; i < menu->submenu.size ( ); i++ ) {
 		hxColor col = i == selection ? hxColor ( 0.01, 0.6, 0.05 )
 			: hxColor ( 0.1, 0.0, 0.5 );
-		if ( bSwitchingState ) {
-			int ind = 0;
-			if ( sliders[0] < 0.0f || sliders[0] > 1.0f )
-				ind = 1;
-			col.a = 1.0f * fDir[ind] - sliders[ind] * fDir[ind];
-		}
-		core->Renderer->RenderText ( menu->submenu[i]->text, 120, 220 + 130 * i,
+		col.a = 1 - fFill;
+		int xShift = i == selection ? 30 : 0;
+		core->Renderer->RenderText ( menu->submenu[i]->text,
+			120 + xShift, 220 + 130 * i,
 			UINT_MAX - 2, col );
 	}
 
@@ -129,15 +127,19 @@ void MainMenu::Update ( float fDeltaTime ) {
 				fTimer[i] = fTime + float ( rand ( ) % 1000 ) - 500.0f;
 			}
 		}
-	}
+	} else
+		fFill += fDeltaTime;
 	sliders[0] = sliders[0] + fVel[0] * fDeltaTime * fDir[0];
 	sliders[1] = sliders[1] + fVel[1] * fDeltaTime * fDir[1];
 	bkgSpr->GetMaterial ( )->SetConstantBufferVariableFloatArray
 		( "slide", 2, sliders );
+	bkgSpr->GetMaterial ( )->SetConstantBufferVariableFloat
+		( "fill", fFill );
 
-	if ( bSwitchingState &&
-		(sliders[0] > 1.0f || sliders[0] < 0.0f) &&
-		(sliders[1] > 1.0f || sliders[1] < 0.0f) ) {
+	bkgSpr->SetSize ( core->WindowsDevice->GetWindowWidth ( ),
+		core->WindowsDevice->GetWindowHeight ( ) );
+
+	if ( bSwitchingState && fFill >= 1.0f ) {
 		app->SwitchState (
 			new GameRunning ( app,
 			menu->submenu[selection]->text ) );
@@ -168,6 +170,7 @@ void MainMenu::CREDITSFUN ( void* _state ) {
 void MainMenu::PLAYGAMEFUN ( void* _state ) {
 	MainMenu* state = (MainMenu*)_state;
 	state->bSwitchingState = true;
+	state->fVel[0] = state->fVel[1] = 2.0f;
 }
 void MainMenu::OnKeydown ( char key ) {
 	if ( key == VK_UP )

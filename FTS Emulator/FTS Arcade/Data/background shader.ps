@@ -1,6 +1,7 @@
 cbuffer cbConstant
 {
 	float2 slide;
+	float fill;
 };
 Texture2D bkg;
 SamplerState gSampler;
@@ -12,6 +13,7 @@ struct GS_OUT
 float4 PS ( GS_OUT input ) : SV_TARGET
 {
 	float2 fAlpha = max ( min ( (1-abs(input.tex - slide)*8.0f) * 0.3f, 1 ), 0 );
+	fAlpha.x = min( 1, fAlpha.x + max(0,fill-input.tex.x) * 500);
 	return bkg.Sample ( gSampler, input.tex ) *
-				float4 ( 2, 2, 2, min ( fAlpha.x + fAlpha.y, 1 ) );
+				float4 ( 1, 1, 1, min ( fAlpha.x + fAlpha.y, 1 ) * (1-fill) );
 }

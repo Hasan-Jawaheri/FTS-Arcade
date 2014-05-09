@@ -22,6 +22,7 @@ bool Application::Setup ( void ) {
 	int width = scrW;
 	int height = scrH;
 #endif
+	core->GetRegisterInfo ( )->featureLevel = D3D_FEATURE_LEVEL_10_0;
 	bool vsync = false;//enable vsync (prevents screen tearing)
 	HX_ERROR err = core->Init ( width, height, vsync );
 	if ( err != HX_SUCCEED ) { //An error occured. Very rare but should always be checked
@@ -40,6 +41,9 @@ bool Application::Setup ( void ) {
 #if (!defined(_DEBUG) && !defined(EMULATOR_MODE))
 	core->WindowsDevice->SetFullScreenState ( true );
 #endif
+
+	core->WindowsDevice->SetWindowTitle ( "FTS Arcade" );
+	core->InputDevice->DisableEscapeKeyQuit ( );
 
 	core->Renderer->CreateFont ( UINT_MAX - 1, "Agency FB", 150 );
 	core->Renderer->CreateFont ( UINT_MAX - 2, "Agency FB", 100 );
@@ -63,20 +67,17 @@ bool Application::Loop ( float fDeltaTime ) {
 	if ( !core->WindowsDevice->GetFullScreenState ( ) )
 		core->WindowsDevice->SetFullScreenState ( true );
 #endif
-	if ( !bSync ) {
-		renderFlags =	RENDERFLAG_NO3D |
-							RENDERFLAG_NOLIGHTING |
-							RENDERFLAG_NOPARTICLES |
-							RENDERFLAG_NOOBJECTSORT |
-							RENDERFLAG_NO2D |
-							RENDERFLAG_NOCLEAR;
-	} else {
-		renderFlags =	RENDERFLAG_NO3D |
-							RENDERFLAG_NOLIGHTING |
-							RENDERFLAG_NOPARTICLES |
-							RENDERFLAG_NOOBJECTSORT;
-	}
 	return true;
+}
+
+bool Application::Render ( void ) {
+	if ( !bSync ) {
+		return true;
+	}
+
+	SendSyncSignal ( core->WindowsDevice->GetWindowWidth ( ),
+							core->WindowsDevice->GetWindowHeight ( ) );
+	return HasX11::Render ( );
 }
 
 void Application::Cleanup ( void ) {

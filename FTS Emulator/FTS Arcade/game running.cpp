@@ -26,7 +26,7 @@ void GameRunning::Load ( void ) {
 		sprintf_s ( command, 512,
 			"\"%s%s\\%s.py\" %d",
 			GAMELIB_PATH, curPath, curPath, port );
-		ShellExecute ( nullptr,
+		HINSTANCE err = ShellExecute ( nullptr,
 			"open",
 			"PythonExec.exe",
 			command,
@@ -75,9 +75,11 @@ void GameRunning::Sync ( char* data, UINT len ) {
 		hxVector2 size;
 		hxVector2 look;
 		char flipState;
+		bool bHidden;
 		bool bPlaying;
 		bool bLooping;
 		bool bPaused;
+		bool pad[3];
 	};
 
 	struct TEXT {
@@ -109,11 +111,16 @@ void GameRunning::Sync ( char* data, UINT len ) {
 				KillClient ( );
 				return;
 			}
+			spr->GetMaterial ( )->SetImage ( core->ImageManager->GetEntity ( sprites[i].imgID ) );
 			spr->SetPosition ( sprites[i].pos );
 			spr->SetSize ( sprites[i].size );
 			spr->SetAngle ( acos ( sprites[i].look.x ) *
 				( sprites[i].look.y >= 0.0f ? 1 : -1 ) *
 				180.0f / HX_PI );
+			if ( sprites[i].bHidden )
+				spr->Hide ( );
+			else
+				spr->Show ( );
 		}
 		delete[] sprites;
 	}
@@ -134,6 +141,9 @@ void GameRunning::Sync ( char* data, UINT len ) {
 		}
 		delete[] texts;
 	}
+
+	if ( p != len )
+		int x = 0;
 }
 hxImage* GameRunning::LoadImage ( LPCSTR name, UINT sliceX, UINT sliceY ) {
 	char filename[MAX_PATH];
@@ -155,6 +165,8 @@ hxSprite* GameRunning::CreateSprite ( UINT imgID ) {
 			hxSprite* spr = new hxSprite ( sprID++, core );
 			HX_ERROR err = spr->GetMaterial ( )->SetImage ( img );
 			spr->SetSize ( img->GetWidth ( ), img->GetHeight ( ) );
+			spr->SetPosition ( core->WindowsDevice->GetWindowWidth ( ) + 1,
+									 core->WindowsDevice->GetWindowHeight ( ) + 1 );
 			if ( err != HX_SUCCEED ) {
 				HX_SAFE_REMOVEREF ( spr );
 				return nullptr;

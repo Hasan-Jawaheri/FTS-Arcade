@@ -34,12 +34,13 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l ) {
 				UINT bytesReceived = 0;
 				UINT leastActiveBuffer = 0;
 				struct ARR8192 { char arr[8192]; };
-				vector<ARR8192> buffer;
+				vector<ARR8192>* buffer = new vector<ARR8192> ();
 
 				// get the first buffer
 				ARR8192 a;
-				buffer.push_back ( a );
-				bytesReceived = recv ( server->curClient, (char*)&buffer[0], 8192, 0 );
+				buffer->push_back ( a );
+				bytesReceived = recv ( server->curClient,
+											  (char*)&(*buffer)[0], 8192, 0 );
 				if ( bytesReceived == SOCKET_ERROR )
 					bytesReceived = 0;
 
@@ -48,7 +49,7 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l ) {
 					while ( posInBuffer + 4 <= curBufSize ) {
 						UINT readOffset = 0;
 						UINT funID;
-						memcpy ( &funID, (char*)&buffer[0] + posInBuffer, 4 );
+						memcpy ( &funID, (char*)&(*buffer)[0] + posInBuffer, 4 );
 						readOffset += 4;
 						if ( funID > MAX_FUNCTION_ID ) {
 							KillClient ( );
@@ -57,8 +58,11 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l ) {
 
 						int funParamSize = 0;
 						if ( funID == 0 ) {
-							if ( posInBuffer + readOffset + 4 < buffer.size ( ) * 8192 ) {
-								memcpy ( &funParamSize, (char*)&buffer[0] + posInBuffer + 4, 4 );
+							if ( posInBuffer + readOffset + 4 <
+									buffer->size ( ) * 8192 ) {
+								memcpy ( &funParamSize,
+											(char*)&(*buffer)[0] + posInBuffer + 4,
+											4 );
 								readOffset += 4;
 							} else
 								break; // not enough bytes to get sync size, stop reading
@@ -69,7 +73,7 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l ) {
 							// we have enough bytes for the parameter too, read it
 							char* tmpBuf = new char[funParamSize];
 							memcpy ( tmpBuf,
-										(char*)&buffer[0] + posInBuffer + readOffset,
+										(char*)&(*buffer)[0] + posInBuffer + readOffset,
 										funParamSize );
 							readOffset += funParamSize;
 							REPLY rep = API_CALL ( funID, tmpBuf, funParamSize );
@@ -83,29 +87,30 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l ) {
 							break;
 						}
 						posInBuffer += readOffset;
-						if ( funID == 0 && readOffset != 372 ) {
-							int x = 0;
-						}
 					}
 
 					// delete buffers that were already digested
 					while ( posInBuffer >= 8192 ) {
-						buffer.erase ( buffer.begin ( ) );
+						buffer->erase ( buffer->begin ( ) );
 						posInBuffer -= 8192;
 						curBufSize -= 8192;
 					}
 					//receive the next buffer
-					buffer.push_back ( a );
-					bytesReceived = recv ( server->curClient, (char*)&buffer[0] + curBufSize, 8192, 0 );
+					buffer->push_back ( a );
+					bytesReceived = recv ( server->curClient,
+													(char*)&(*buffer)[0] + curBufSize,
+													8192, 0 );
 					curBufSize += bytesReceived;
-					if ( posInBuffer + bytesReceived <= ( buffer.size ( ) - 1 ) * 8192 )
-						buffer.erase ( buffer.begin ( ) + buffer.size ( ) - 1 );
+					if ( posInBuffer + bytesReceived <=
+								( buffer->size ( ) - 1 ) * 8192 )
+						buffer->erase ( buffer->begin ( ) + buffer->size ( ) - 1 );
 					if ( bytesReceived == SOCKET_ERROR )
 						bytesReceived = 0;
 				}
 
 				// delete any remaining buffers
-				buffer.clear ( );
+				buffer->clear ( );
+				delete buffer;
 
 				server->timeout = timeGetTime ( );
 				break;
@@ -180,7 +185,9 @@ bool HostCommunication ( HasX11* hx11, UINT port ) {
 	serverInfo.sin_port = htons ( port );
 
 	// Bind the socket to our local server address
-	if ( bind ( server->skt, (LPSOCKADDR)&serverInfo, sizeof sockaddr ) == SOCKET_ERROR ) {
+	if ( bind ( server->skt,
+					(LPSOCKADDR)&serverInfo,
+					sizeof sockaddr ) == SOCKET_ERROR ) {
 		closesocket ( server->skt );
 		return false;
 	}
@@ -210,6 +217,14 @@ void StopComunication ( bool bCleanup ) {
 		}
 	}
 }
+void SendSyncSignal ( int w, int h ) {
+	if ( server ) {
+		if ( server->bConnected && server->curClient ) {
+			int arr[2] = { w, h };
+			send ( server->curClient, (char*)arr, 8, 0 );
+		}
+	}
+}
 bool IsServerConnected ( void ) {
 	if ( !winsockInitialized )
 		return false;
@@ -217,5 +232,6 @@ bool IsServerConnected ( void ) {
 		printf ( "Client timed out!\n" );
 		KillClient ( );
 	}
+
 	return server->bConnected;
 }

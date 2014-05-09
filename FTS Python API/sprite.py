@@ -12,9 +12,13 @@ class SPRITE:
     self.size = (image.GetImageWidth (imgID), image.GetImageHeight(imgID))
     self.look = (1.0, 0.0)
     self.flipState = chr(0)
+    self.bHidden = False
     self.bPlaying = False
     self.bLooping = False
     self.bPaused = False
+    self.pad = False
+    self.pad2 = False
+    self.pad3 = False
   
   # TODO: ADD SPRITE ATTRIBUTES
 
@@ -102,19 +106,47 @@ def GetSpritePositionY(sprite):
   else:
     return 0
 
-def GetSpriteWidth(sprite):
+def GetSpriteSizeX(sprite):
   x = GetSprite(sprite)
   if x != None:
     return x.size[0]
   else:
     return 0
 
-def GetSpriteHeight(sprite):
+def GetSpriteSizeY(sprite):
   x = GetSprite(sprite)
   if x != None:
     return x.size[1]
   else:
     return 0
+
+def ShowSprite (sprite):
+  x = GetSprite(sprtie)
+  if x != None:
+    x.bHidden = False
+
+def HideSprite (sprite):
+  x = GetSprite(sprtie)
+  if x != None:
+    x.bHidden = True
+
+def SetSpriteImage (sprite, img):
+  x = GetSprite(sprtie)
+  if x != None:
+    x.imageID = img
+
+def SpritesCollide (spr1, spr2):
+  x = GetSprite(spr1)
+  y = GetSprite(spr2)
+  if x == None or y == None:
+    return False
+  xRad = (x.size[0] / 2, x.size[1] / 2)
+  yRad = (y.size[0] / 2, y.size[1] / 2)
+  xCen = (x.position[0]+xRad[0], x.position[1]+xRad[1])
+  yCen = (y.position[0]+yRad[0], y.position[1]+yRad[1])
+
+  return abs(xCen[0]-yCen[0]) < xRad[0] + yRad[0] and\
+         abs(xCen[1]-yCen[1]) < xRad[1] + yRad[1]
 
 def SyncSprites():
   spritesList = bytearray([])
@@ -122,10 +154,10 @@ def SyncSprites():
   for i in main.SPRITETABLE:
     for j in i:
       numSprites += 1
-      k = struct.pack ("iiffffffc???", j.ID, j.imageID, j.position[0], j.position[1],
+      k = struct.pack ("iiffffffc???????", j.ID, j.imageID, j.position[0], j.position[1],
                       j.size[0], j.size[1], j.look[0], j.look[1], j.flipState,
-                      j.bPlaying, j.bLooping, j.bPaused)
+                      j.bHidden, j.bPlaying, j.bLooping, j.bPaused, j.pad, j.pad2, j.pad3)
       spritesList += k
   return ((struct.pack("i", numSprites)) + spritesList,
-          4 + numSprites * 36)
+          4 + numSprites * 40)
 

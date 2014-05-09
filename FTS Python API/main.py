@@ -18,10 +18,11 @@ CURFONTCOLOR = (chr(255), chr(0), chr(0))
 def SEND ( msg ):
   CLIENTSOCKET.send ( msg )
 
-def RECEIVE ( r, len ):
-  received = CLIENTSOCKET.recv(len)
+def RECEIVE ( r, length ):
+  received = CLIENTSOCKET.recv(length)
   ar = bytearray(map ((lambda x: ord(x)), list(received)))
-  return struct.unpack(r, ar)
+  print "[[[[", len(ar), ar, "]]]]"
+  return struct.unpack(r, str(ar))
 
 def SPEED ( units ):
   return units * fDeltaTime

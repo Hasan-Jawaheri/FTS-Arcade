@@ -27,6 +27,7 @@ public:
 	//This occurs before rendering and rendering should NOT be done here
 	//***************************************************************************************
 	bool Loop ( float fDeltaTime );
+	bool Render ( void );
 
 	//***************************************************************************************
 	//This is called once at the end of the program if it passes the Setup function

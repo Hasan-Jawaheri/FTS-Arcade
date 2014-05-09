@@ -12,6 +12,7 @@ class MainMenu : public hxGameState {
 	float fVel[2];
 	float fDir[2];
 	float fTimer[2];
+	float fFill;
 
 	struct MENUITEM {
 		char text[64];

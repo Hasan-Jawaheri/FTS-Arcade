@@ -13,6 +13,7 @@ bool ServerWndProc ( HWND wnd, UINT msg, WPARAM w, LPARAM l );
 bool IsServerConnected ( void );
 bool HostCommunication ( HasX11* hx11, UINT port );
 void StopComunication ( bool bCleanup );
+void SendSyncSignal ( int width, int height );
 void KillClient ( void );
 
 #endif //_COMMUNICATION_H_

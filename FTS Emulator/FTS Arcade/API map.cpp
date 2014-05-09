@@ -16,10 +16,7 @@ REPLY API_CALL ( unsigned int funID, char* pParams, unsigned int len ) {
 	switch ( funID ) {
 		case 0: { // Sync
 			APPHANDLE->Sync ( pParams, len );
-			rep.msg = new char[4];
-			rep.len = 4;
-			UINT temp = 0;
-			memcpy ( rep.msg, (void*)&temp, 4 );
+			rep.len = 0;
 			break;
 		} case 1: { // LoadImage
 			struct _LoadImage params;
