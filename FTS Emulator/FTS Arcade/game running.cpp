@@ -22,10 +22,10 @@ void GameRunning::Load ( void ) {
 	} while ( !bHosted && numTries < 5 );
 
 	if ( bHosted ) {
-		char command[512];
-		sprintf_s ( command, 512,
-			"\"%s%s\\%s.py\" %d",
-			GAMELIB_PATH, curPath, curPath, port );
+		char command[1024];
+		sprintf_s ( command, 1024,
+			"\"%s..\" %d \"%s\"",
+			GAMELIB_PATH, port, curPath );
 		HINSTANCE err = ShellExecute ( nullptr,
 			"open",
 			"PythonExec.exe",

@@ -74,6 +74,7 @@ bool Application::Render ( void ) {
 	if ( !bSync ) {
 		return true;
 	}
+	bSync = false;
 
 	SendSyncSignal ( core->WindowsDevice->GetWindowWidth ( ),
 							core->WindowsDevice->GetWindowHeight ( ) );

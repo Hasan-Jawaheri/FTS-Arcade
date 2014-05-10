@@ -139,6 +139,8 @@ void MainMenu::Update ( float fDeltaTime ) {
 	bkgSpr->SetSize ( core->WindowsDevice->GetWindowWidth ( ),
 		core->WindowsDevice->GetWindowHeight ( ) );
 
+	APPHANDLE->bSync = true;
+
 	if ( bSwitchingState && fFill >= 1.0f ) {
 		app->SwitchState (
 			new GameRunning ( app,
