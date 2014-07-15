@@ -26,9 +26,10 @@ authors.
 H O W   T O   U S E
 ===============================================================================
 -------------------------------------------------------------------------------
-You probably don't want to modify the source code of the emulator, but feel
-free to take a look. The code that you probably want to modify/extend is in
-"FTS Python/API/".
+Put "FTS Python" and "FTS Collection" folders in your Documents (or
+My Documents) folder. You probably don't want to modify the source code of the
+emulator, but feel free to take a look. The code that you probably want to
+modify/extend is in "FTS Python/API/".
 
 To have a game running, there must be a folder in "Documents/FTS Collection/"
 for the game. The name of this folder is the title of the game. Inside that
